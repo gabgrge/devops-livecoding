@@ -4,8 +4,5 @@ FROM ubuntu:latest
 # Update the system and install Ansible
 RUN apt-get update && apt-get install -y ansible
 
-# Set the working directory to /ansible
-WORKDIR /ansible
-
 # Copy your Ansible playbook and roles into the Docker image
 COPY ansible ansible
