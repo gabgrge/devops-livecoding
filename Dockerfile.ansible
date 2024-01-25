@@ -8,5 +8,4 @@ RUN apt-get update && apt-get install -y ansible
 WORKDIR /ansible
 
 # Copy your Ansible playbook and roles into the Docker image
-COPY ansible/playbook.yml ansible/playbook.yml
-COPY ansible/roles ansible/roles
+COPY ansible ansible
