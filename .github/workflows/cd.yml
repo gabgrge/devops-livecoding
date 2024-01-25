@@ -1,0 +1,25 @@
+name: Continuous Deployment on Release
+on:
+  push:
+    branches:
+      - production
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build Docker image
+        run: |
+          docker build -t ansible-deployer -f Dockerfile.ansible .
+
+      - name: Run Ansible playbook
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > id_rsa
+          chmod 600 id_rsa
+          docker run --rm -v $(pwd):/ansible -w /ansible ansible-deployer ansible-playbook ansible/playbook.yml
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: False
