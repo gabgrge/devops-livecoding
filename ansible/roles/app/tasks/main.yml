@@ -1,0 +1,15 @@
+---
+# tasks file for roles/app
+
+- name: Run application container
+  docker_container:
+    name: my-api
+    image: gabgrge/tp-devops-simple-api:latest
+    networks:
+      - name: my-network
+    env:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://my-db:5432/db
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: pwd
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
